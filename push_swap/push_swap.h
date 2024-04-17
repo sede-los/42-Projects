@@ -31,4 +31,6 @@ t_stack     *ft_new_stack(int content);
 void	    ft_freestr(char **lst);
 t_stack     *ft_stacklast(t_stack *stack);
 void        ft_add_back(t_stack **stack,  t_stack *new_stack);
+void	    ft_free(t_stack **lst);
+int         ft_check_dup(t_stack *a);
 #endif

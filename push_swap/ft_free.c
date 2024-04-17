@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 18:09:32 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:35 by sede-los         ###   ########.fr       */
+/*   Created: 2024/04/17 21:40:22 by sede-los          #+#    #+#             */
+/*   Updated: 2024/04/17 21:40:26 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int argc, char *argv[])
+void	ft_free(t_stack **lst)
 {
-    t_stack *a;
+	t_stack	*tmp;
 
-    a = ft_process(argc, argv);
-    if (!a || ft_check_dup(a))
-    {
-        ft_free(&a);
-        ft_error();
-    }
-    //pruebas - borrar
-    while(a)
-    {
-        ft_printf("%i\n", a->nbr);
-        a = a->next;
-    }
-    ft_free(&a);
-    return (0);
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		(*lst)->nbr = 0;
+		free(*lst);
+		*lst = tmp;
+	}
 }
