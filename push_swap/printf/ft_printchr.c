@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printchr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 18:09:32 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:35 by sede-los         ###   ########.fr       */
+/*   Created: 2023/09/21 20:39:45 by sede-los          #+#    #+#             */
+/*   Updated: 2024/03/31 04:43:15 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
 
-int main(int argc, char *argv[])
+int	ft_printchr(int c)
 {
-    t_stack *a;
-
-    a = ft_process(argc, argv);
-    //pruebas - borrar
-    while(a)
-    {
-        ft_printf("%i\n", a->nbr);
-        a = a->next;
-    }
+	return (write(1, &c, 1));
 }

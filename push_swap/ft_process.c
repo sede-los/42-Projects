@@ -88,7 +88,7 @@ t_stack *ft_process(int argc, char **argv)
     if (argc < 2)
         ft_error();
     if (argc == 2)
-        process_quoted_string(argv[1]);
+        a = process_quoted_string(argv[1]);
     else
         while(i < argc)
         {

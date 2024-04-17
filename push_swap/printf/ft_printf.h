@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 18:09:32 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:35 by sede-los         ###   ########.fr       */
+/*   Created: 2023/09/21 23:53:18 by sede-los          #+#    #+#             */
+/*   Updated: 2023/09/26 00:30:58 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int main(int argc, char *argv[])
-{
-    t_stack *a;
+# include <limits.h>
 
-    a = ft_process(argc, argv);
-    //pruebas - borrar
-    while(a)
-    {
-        ft_printf("%i\n", a->nbr);
-        a = a->next;
-    }
-}
+int	ft_printf(char const *format, ...);
+int	ft_printchr(int c);
+int	ft_printstr(char *str);
+int	ft_printnbr(long n, int base);
+int	ft_printptr(char *ptr);
+int	ft_printunsnbr(unsigned long n, int base);
+int	ft_printhexmay(unsigned long n, int base);
+int	ft_printhex(unsigned long n, int base);
+
+#endif

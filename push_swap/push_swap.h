@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 #include "./libft/libft.h"
+# include "./printf/ft_printf.h"
 
 typedef struct s_stack
 {
@@ -28,4 +29,6 @@ void        ft_error(void);
 int         ft_atoi2(const char *str);
 t_stack     *ft_new_stack(int content);
 void	    ft_freestr(char **lst);
+t_stack     *ft_stacklast(t_stack *stack);
+void        ft_add_back(t_stack **stack,  t_stack *new_stack);
 #endif

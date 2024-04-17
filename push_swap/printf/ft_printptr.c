@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 18:09:32 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:35 by sede-los         ###   ########.fr       */
+/*   Created: 2023/09/21 23:10:36 by sede-los          #+#    #+#             */
+/*   Updated: 2023/10/02 13:49:38 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
+#include "ft_printf.h"
+#include <stdio.h>
 
-int main(int argc, char *argv[])
+int	ft_printptr(char *ptr)
 {
-    t_stack *a;
-
-    a = ft_process(argc, argv);
-    //pruebas - borrar
-    while(a)
-    {
-        ft_printf("%i\n", a->nbr);
-        a = a->next;
-    }
+	return (ft_printhex((unsigned long)ptr, 16));
 }

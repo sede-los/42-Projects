@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 18:09:32 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:35 by sede-los         ###   ########.fr       */
+/*   Created: 2023/09/21 22:50:05 by sede-los          #+#    #+#             */
+/*   Updated: 2023/10/02 13:52:35 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
+#include "ft_printf.h"
 
-int main(int argc, char *argv[])
+int	ft_printhex(unsigned long n, int base)
 {
-    t_stack *a;
+	char	*str;
+	int		count;
 
-    a = ft_process(argc, argv);
-    //pruebas - borrar
-    while(a)
-    {
-        ft_printf("%i\n", a->nbr);
-        a = a->next;
-    }
+	count = 0;
+	str = "0123456789abcdef";
+	if (n < (unsigned int)base)
+		count += ft_printchr(str[n]);
+	else
+	{
+		count += ft_printhex(n / base, base);
+		count += ft_printhex(n % base, base);
+	}
+	return (count);
 }
