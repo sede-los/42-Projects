@@ -1,23 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_back.c                                      :+:      :+:    :+:   */
+/*   operations_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 19:07:52 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 19:08:17 by sede-los         ###   ########.fr       */
+/*   Created: 2024/04/18 04:04:41 by sede-los          #+#    #+#             */
+/*   Updated: 2024/04/18 04:04:43 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    ft_add_back(t_stack **stack,  t_stack *new_stack)
+void	ft_rb(t_stack **b, int j)
 {
-    if (!stack)
-        return;
-    if (!*stack)
-        *stack = new_stack;
-    else
-        (ft_stacklast(*stack))->next  = new_stack;
+	t_stack	*tmp;
+
+	if (!*b || !(*b)->next)
+		return ;
+	tmp = *b;
+	*b = ft_stacklast(*b);
+	(*b)->next = tmp;
+	*b = tmp->next;
+	tmp->next = NULL;
+	if (j == 0)
+		ft_printf("rb\n");
+}
+
+void	ft_sb(t_stack **b, int j)
+{
+	t_stack	*tmp;
+
+	if (!*b || !((*b)->next))
+		return ;
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = (*b)->next;
+	(*b)->next = tmp;
+	if (j == 0)
+		ft_printf("sb\n");
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_back.c                                      :+:      :+:    :+:   */
+/*   check_sorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 19:07:52 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 19:08:17 by sede-los         ###   ########.fr       */
+/*   Created: 2024/04/17 22:23:20 by sede-los          #+#    #+#             */
+/*   Updated: 2024/04/17 22:23:27 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    ft_add_back(t_stack **stack,  t_stack *new_stack)
+int ft_check_sorted(t_stack *a)
 {
-    if (!stack)
-        return;
-    if (!*stack)
-        *stack = new_stack;
-    else
-        (ft_stacklast(*stack))->next  = new_stack;
+    int i;
+
+    i = a->nbr;
+    while(a)
+    {
+        if(i > a->nbr)
+            return(0);
+        i = a->nbr;
+        a = a->next;
+    }
+    return(1);
 }
