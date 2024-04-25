@@ -22,6 +22,10 @@ int main(int argc, char *argv[])
         ft_free(&a);
         ft_error();
     }
+    if (!ft_check_sorted(a))
+    {
+        ft_sort(&a);
+    }
     //pruebas - borrar
     while(a)
     {

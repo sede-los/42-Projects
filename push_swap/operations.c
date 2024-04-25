@@ -35,7 +35,7 @@ void    ft_sa(t_stack **a, int j)
         return ;
     tmp = *a;
     *a  = (*a)->next;
-    tmp->next = (*a->next);
+    tmp->next = (*a)->next;
     (*a)->next = tmp;
     if (j == 0)
         ft_printf("sa\n");

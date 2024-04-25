@@ -30,10 +30,13 @@ int ft_find_place_b(t_stack *stack_b, int nbr_push)
 {
     int i;
     t_stack *tmp;
-
+    ft_printf("prueba\n"); //prueba - borrar
     i = 1;
     if (nbr_push > stack_b->nbr && nbr_push < ft_stacklast(stack_b)->nbr)
+    {
         i = 0;
+        ft_printf("prueba_2\n"); //borrar    
+    }
     else if (nbr_push > ft_max(stack_b) || nbr_push < ft_min(stack_b))
         i = ft_find_index(stack_b, ft_max(stack_b));
     else
@@ -43,7 +46,7 @@ int ft_find_place_b(t_stack *stack_b, int nbr_push)
             i++;
             stack_b  = stack_b->next;
             tmp = stack_b->next;
-        }  
+        }
     return (i);
 }
 
