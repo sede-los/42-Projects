@@ -68,7 +68,7 @@ t_stack **ft_sort_a(t_stack **stack_a, t_stack **stack_b)
     {
         tmp = *stack_b;
         i = ft_rotate_type_ba(*stack_a, *stack_b);
-        while (i >= 0)
+        while(i >= 0)
         {
             if (i == ft_case_rarb_a(*stack_a, *stack_b, tmp->nbr))
                 i = ft_apply_rarb(stack_a, stack_b, tmp->nbr, 'b');

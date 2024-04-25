@@ -42,20 +42,22 @@ int ft_max(t_stack *a)
 
 int ft_stack_size(t_stack *stack)
 {
-    int i;
+    size_t i;
 
     i = 0;
     while(stack)
     {
-        i++;
         stack = stack->next;
+        i++;
     }
     return (i); 
 }
 
 t_stack *ft_stacklast(t_stack *stack)
 {
-    while (stack && stack->next)
-	stack = stack->next;
+    if(!stack)
+        return (NULL);
+    while (stack->next)
+	    stack = stack->next;
 	return (stack);
 }
