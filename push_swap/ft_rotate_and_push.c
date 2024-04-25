@@ -31,7 +31,7 @@ int ft_apply_rarb(t_stack **a, t_stack **b, int c, char s)
         while((*b)->nbr != c)
             ft_rb(b, 0);
         while(ft_find_place_a(*a, c) > 0)
-            ft_ra(b, 0);
+            ft_ra(a, 0);
         ft_pa(a, b, 0);
     }
     return (-1);
@@ -56,7 +56,7 @@ int ft_apply_rrarrb(t_stack **a, t_stack **b, int c, char s)
         while((*b)->nbr != c)
             ft_rrb(b, 0);
         while(ft_find_place_a(*a, c) > 0)
-            ft_rra(b, 0);
+            ft_rra(a, 0);
         ft_pa(a, b, 0);
     }
     return (-1);
