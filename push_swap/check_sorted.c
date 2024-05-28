@@ -6,23 +6,23 @@
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:23:20 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 22:23:27 by sede-los         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:13:53 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_check_sorted(t_stack *a)
+int	ft_check_sorted(t_stack *a)
 {
-    int i;
+	int	i;
 
-    i = a->nbr;
-    while(a)
-    {
-        if(i > a->nbr)
-            return(0);
-        i = a->nbr;
-        a = a->next;
-    }
-    return(1);
+	i = a->nbr;
+	while (a)
+	{
+		if (i > a->nbr)
+			return (0);
+		i = a->nbr;
+		a = a->next;
+	}
+	return (1);
 }

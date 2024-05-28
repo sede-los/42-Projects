@@ -6,7 +6,7 @@
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:13:26 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:15:19 by sede-los         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:26:34 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,45 +56,47 @@ int	ft_atoi2(const char *str)
 	return (mod * i);
 }
 
-t_stack  *process_quoted_string(char *str)
+t_stack	*process_quoted_string(char *str)
 {
-    t_stack *a;
-    char    **tmp;
-    int     i;
-    int     nbr;
+	t_stack	*a;
+	char	**tmp;
+	int		i;
+	int		nbr;
 
-    a = NULL;
-    i = 0;
-    tmp = ft_split(str, 32);
-    while(tmp[i])
-    {
-        nbr = ft_atoi2(tmp[i]);
-        ft_add_back(&a, ft_new_stack(nbr));
-        i++;
-    }
-    ft_freestr(tmp);
-    free(tmp);
-    return (a);
+	a = NULL;
+	i = 0;
+	tmp = ft_split(str, 32);
+	while (tmp[i])
+	{
+		nbr = ft_atoi2(tmp[i]);
+		ft_add_back(&a, ft_new_stack(nbr));
+		i++;
+	}
+	ft_freestr(tmp);
+	free(tmp);
+	return (a);
 }
 
-t_stack *ft_process(int argc, char **argv)
+t_stack	*ft_process(int argc, char **argv)
 {
-    t_stack *a;
-    int     i;
-    int     nbr;
+	t_stack	*a;
+	int		i;
+	int		nbr;
 
-    i = 1;
-    a = NULL;
-    if (argc < 2)
-        ft_error();
-    if (argc == 2)
-        a = process_quoted_string(argv[1]);
-    else
-        while(i < argc)
-        {
-            nbr = ft_atoi2(argv[i]);
-            ft_add_back(&a, ft_new_stack(nbr));
-            i++;
-        }
-    return (a);
+	i = 1;
+	a = NULL;
+	if (argc < 2)
+		ft_error();
+	if (argc == 2)
+		a = process_quoted_string(argv[1]);
+	else
+	{
+		while (i < argc)
+		{
+			nbr = ft_atoi2(argv[i]);
+			ft_add_back(&a, ft_new_stack(nbr));
+			i++;
+		}
+	}
+	return (a);
 }

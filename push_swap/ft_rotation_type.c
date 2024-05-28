@@ -6,7 +6,7 @@
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 02:25:50 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/18 02:25:57 by sede-los         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:08:06 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,24 @@ int	ft_rotate_type_ba(t_stack *a, t_stack *b)
 	return (i);
 }
 
-int ft_rotate_type_ab(t_stack *a, t_stack *b)
+int	ft_rotate_type_ab(t_stack *a, t_stack *b)
 {
-    int     i;
-    t_stack *tmp;
+	int		i;
+	t_stack	*tmp;
 
-    tmp = a;
-    i  = ft_case_rrarrb(a, b, a->nbr);
-    while(tmp)
-    {
-        if(i > ft_case_rarb(a, b, tmp->nbr))
-            i  = ft_case_rarb(a, b, tmp->nbr);
-        if (i > ft_case_rrarrb(a, b, tmp->nbr))
+	tmp = a;
+	i = ft_case_rrarrb(a, b, a->nbr);
+	while (tmp)
+	{
+		if (i > ft_case_rarb(a, b, tmp->nbr))
+			i = ft_case_rarb(a, b, tmp->nbr);
+		if (i > ft_case_rrarrb(a, b, tmp->nbr))
 			i = ft_case_rrarrb(a, b, tmp->nbr);
 		if (i > ft_case_rarrb(a, b, tmp->nbr))
 			i = ft_case_rarrb(a, b, tmp->nbr);
 		if (i > ft_case_rrarb(a, b, tmp->nbr))
 			i = ft_case_rrarb(a, b, tmp->nbr);
-        tmp = tmp->next;
-    }
-    return (i);
+		tmp = tmp->next;
+	}
+	return (i);
 }

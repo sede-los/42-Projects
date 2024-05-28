@@ -6,7 +6,7 @@
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 03:41:19 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/18 03:41:37 by sede-los         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:36:23 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void	ft_ra(t_stack **a, int j)
 		ft_printf("ra\n");
 }
 
-void    ft_sa(t_stack **a, int j)
+void	ft_sa(t_stack **a, int j)
 {
-    t_stack *tmp;
+	t_stack	*tmp;
 
-    if (!*a || !(*a)->next)
-        return ;
-    tmp = *a;
-    *a  = (*a)->next;
-    tmp->next = (*a)->next;
-    (*a)->next = tmp;
-    if (j == 0)
-        ft_printf("sa\n");
+	if (!*a || !(*a)->next)
+		return ;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = (*a)->next;
+	(*a)->next = tmp;
+	if (j == 0)
+		ft_printf("sa\n");
 }
 
 void	ft_pa(t_stack **a, t_stack **b, int j)
@@ -77,7 +77,7 @@ void	ft_rra(t_stack **a, int j)
 	}
 	tmp->next = NULL;
 	if (j == 0)
-	    ft_printf("rra\n");
+		ft_printf("rra\n");
 }
 
 void	ft_ss(t_stack **a, t_stack **b, int j)

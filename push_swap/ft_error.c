@@ -6,14 +6,14 @@
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:24:24 by sede-los          #+#    #+#             */
-/*   Updated: 2024/04/17 18:24:29 by sede-los         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:04:46 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_error(void)
+void	ft_error(void)
 {
-    write (2, "Error\n", 6);
-    exit (1);    
+	write (2, "Error\n", 6);
+	exit (1);
 }
