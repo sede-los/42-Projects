@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
         ft_sort(&a);
     }
     //pruebas - borrar
+    /*
     ft_printf("\n");
     while(a)
     {
@@ -35,4 +36,5 @@ int main(int argc, char *argv[])
     }
     ft_free(&a);
     return (0);
+    */
 }
