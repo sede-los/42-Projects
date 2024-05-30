@@ -26,4 +26,6 @@ int	main(int argc, char *argv[])
 	{
 		ft_sort(&a);
 	}
+	ft_free (&a);
+	return (0);
 }
