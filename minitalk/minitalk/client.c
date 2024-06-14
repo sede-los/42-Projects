@@ -15,59 +15,81 @@
 #include "../libft/libft.h"
 #include "../printf/ft_printf.h"
 
-volatile sig_atomic_t confirmation_received = 0;
+volatile sig_atomic_t	g_confirmation_received = 0;
 
-void confirmation_handler(int signal) 
+void	ft_client_error(int error)
 {
-	if (signal == SIGUSR1) 
-		confirmation_received = 1;
-}
-
-void send_byte(pid_t server_pid, char c)
-{
-	int i;
-
-	i = 0;
-	while(i < 8)
+	if (error == 0)
 	{
-		if (c & (1 << i)) {
-            kill(server_pid, SIGUSR2);
-        } else {
-            kill(server_pid, SIGUSR1);
-        }
-		i++;
-		while (!confirmation_received) {
-            pause();
-        }
-        confirmation_received = 0;
-	}
-}
-
-int main(int argc, char **argv)
-{
-	if (argc != 3)
-	{
-		ft_printf("Error. Uso: %s <PID del servidor> <string>\n", argv[0]);
+		ft_printf("Error. Uso: client <PID del servidor> <string>\n");
 		exit(EXIT_FAILURE);
 	}
+	else if (error == 1)
+	{
+		ft_printf("Error al manejar SIGUSR1\n");
+		exit(EXIT_FAILURE);
+	}
+	else if (error == 2)
+	{
+		ft_printf("Error al manejar SIGUSR2\n");
+		exit(EXIT_FAILURE);
+	}
+	exit(-1);
+}
 
-	pid_t server_pid = ft_atoi(argv[1]);
-	const char *message = argv[2];
+void	confirmation_handler(int signal)
+{
+	if (signal == SIGUSR1)
+	{
+		g_confirmation_received = 1;
+	}
+	else if (signal == SIGUSR2)
+	{
+		g_confirmation_received = 1;
+		ft_printf("Mensaje enviado y recibido con exito\n");
+	}
+}
 
-	struct sigaction sa;
+void	send_byte(pid_t server_pid, char c)
+{
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (c & (1 << i))
+			kill(server_pid, SIGUSR2);
+		else
+			kill(server_pid, SIGUSR1);
+		i++;
+		while (!g_confirmation_received)
+			pause();
+		g_confirmation_received = 0;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	pid_t				server_pid;
+	const char			*message;
+	struct sigaction	sa;
+
+	if (argc != 3)
+		ft_client_error(0);
+	server_pid = ft_atoi(argv[1]);
+	message = argv[2];
 	sa.sa_handler = &confirmation_handler;
 	sa.sa_flags = SA_RESTART;
 	sigfillset(&sa.sa_mask);
-
-	if (sigaction(SIGUSR1, &sa, NULL) == -1) {
-		ft_printf("Error al manejar SIGUSR1");
-		exit(EXIT_FAILURE);
-	}
-
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+		ft_client_error(1);
+	if (sigaction(SIGUSR2, &sa, NULL) == -1)
+		ft_client_error(2);
 	while (*message)
 	{
 		send_byte(server_pid, *message);
 		message++;
 	}
-	return 0;
+	send_byte(server_pid, '\0');
+	return (0);
 }
