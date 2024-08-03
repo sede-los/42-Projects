@@ -64,5 +64,6 @@ void	increment_shlvl(t_env *env);
 int		valid_value(char *val);
 char	*get_env_value(char *value, char *env_str);
 void	free_env(t_env *env);
+char	*get_shlvl_env_value(t_env *env);
 
 #endif

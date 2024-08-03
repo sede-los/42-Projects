@@ -23,19 +23,32 @@ int	valid_value(char *val)
 	while(val[i])
 	{
 		if(!(ft_isdigit(val[i] - 48)))
-			return (0);	
+			return (1);	
 		i++;
 	}
-	return (1);
+	return (0);
+}
+
+char	*get_shlvl_env_value(t_env *env)
+{
+	char	value[BUFF_SIZE];
+
+	while(env && env->next)
+	{
+		if(ft_strncmp("SHLVL", env->str, 5)== 0)
+			return(get_env_value(value, env->str));
+		env = env->next;
+	}
+	return ("error");
 }
 
 void	increment_shlvl(t_env *env)
 {
-	char	value[BUFF_SIZE];
+	char	*value;
 	int		shlvl;
 	char	*shlvl_new_value;
-	
-	get_env_value(value, env->str);
+
+	value = get_shlvl_env_value(env);
 	if(!(valid_value(value)))
 		return ;
 	shlvl = ft_atoi(value);
@@ -45,9 +58,9 @@ void	increment_shlvl(t_env *env)
 	{
 		if(ft_strncmp("SHLVL", env->str, 5)== 0)
 		{
-			env->str = ft_strjoin("SHLVL", shlvl_new_value);
+			env->str = ft_strjoin("SHLVL=", shlvl_new_value);
 			return ;
 		}
 		env = env->next;
-	}	
+	}
 }
