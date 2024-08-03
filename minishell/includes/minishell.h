@@ -56,14 +56,30 @@ typedef struct	s_mini
 	int		pipout;
 	int		pid;
 	int		exit;
+	int		ret;
 }				t_mini;
 
+typedef struct	s_sig
+{
+	int		sigint; /* interrumpt signal (CTRL + Q) */
+	int		sigquit; /* quit signal (Ctrl + \) */
+	int		exit_status;
+	pid_t	pid;
+}				t_sig;
+
+
 void	reset_fds(t_mini *mini);
+void	sig_init(void);
+
 int		env_init(t_mini *mini, char **env_array);
 void	increment_shlvl(t_env *env);
 int		valid_value(char *val);
 char	*get_env_value(char *value, char *env_str);
 void	free_env(t_env *env);
 char	*get_shlvl_env_value(t_env *env);
+
+void	parse(t_mini *mini);
+
+extern t_sig g_sig;
 
 #endif
