@@ -36,12 +36,12 @@ int init_philosophers(t_rules *rules)
 	i = rules->nb_philos;
 	while(--i >= 0)
 	{
-		rules->philos->id = i;
-		rules->philos->left_fork_id = i;
-		rules->philos->right_fork_id = (i + 1) % rules->nb_philos;
-		rules->philos->t_last_meal = 0;
-		rules->philos->x_ate = 0;
-		rules->philos->rules = rules;
+		rules->philos[i].id = i;
+		rules->philos[i].left_fork_id = i;
+		rules->philos[i].right_fork_id = (i + 1) % rules->nb_philos;
+		rules->philos[i].t_last_meal = 0;
+		rules->philos[i].x_ate = 0;
+		rules->philos[i].rules = rules;
 	}
 	return (0);
 }
