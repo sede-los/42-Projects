@@ -17,24 +17,24 @@ int	init_mutex(t_rules *rules)
 	int	i;
 
 	i = rules->nb_philos;
-	while(--i >= 0)
+	while (--i >= 0)
 	{
 		if (pthread_mutex_init(&(rules->forks[i]), NULL))
 			return (1);
 	}
-	if (pthread_mutex_init(&(rules->meal_check)), NULL)
+	if (pthread_mutex_init(&(rules->meal_check), NULL))
 		return (1);
-	if (pthread_mutex_init(&(rules->writing)), NULL)
+	if (pthread_mutex_init(&(rules->writing), NULL))
 		return (1);
 	return (0);
 }
 
-int init_philosophers(t_rules *rules)
+int	init_philosophers(t_rules *rules)
 {
-	int i;
+	int	i;
 
 	i = rules->nb_philos;
-	while(--i >= 0)
+	while (--i >= 0)
 	{
 		rules->philos[i].id = i;
 		rules->philos[i].left_fork_id = i;
@@ -56,9 +56,10 @@ int	init_all(t_rules *rules, char **argv)
 		rules->nb_all_eat = ft_atoi(argv[5]);
 	else
 		rules->nb_all_eat = -1;
-	rules->all_eat = 0;
+	rules->flag_all_eat = 0;
 	rules->flag_died = 0;
 	if (init_mutex(rules))
-		return(write_error("Fatal error when intializing mutex"));
+		return (write_error("Fatal error when intializing mutex"));
 	init_philosophers(rules);
+	return (0);
 }

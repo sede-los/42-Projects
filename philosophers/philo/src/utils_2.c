@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 05:16:08 by sede-los          #+#    #+#             */
-/*   Updated: 2024/10/04 05:16:11 by sede-los         ###   ########.fr       */
+/*   Created: 2024/11/21 01:22:03 by sede-los          #+#    #+#             */
+/*   Updated: 2024/11/21 01:22:23 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	write_error(char *str)
+void	action_print(t_rules *rules, int id, char *str)
 {
-	if (!str)
-		printf("Error: (null)\n");
-	else
-		printf("Error: %s\n", str);
-	return (1);
+	pthread_mutex_lock(&(rules->writing));
+	if (!(rules->flag_died))
+	{
+		printf("%lli ", time_diff(rules->first_timestamp, timestamp()));
+		printf("%i ", id + 1);
+		printf("%s\n", str);
+	}
+	pthread_mutex_unlock(&(rules->writing));
+	return ;
 }

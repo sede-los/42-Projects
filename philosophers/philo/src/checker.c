@@ -12,16 +12,18 @@
 
 #include "../include/philosophers.h"
 
-void	parse_checker(char	**argv)
+int	parse_checker(char	**argv)
 {
-	if (argv[1] <= 0 || argv[1] > PHILO_MAX || !(str_is_num(argv[1])))
+	if (ft_atoi(argv[1]) > PHILO_MAX || ft_atoi(argv[1]) <= 0
+		|| check_arg_content(argv[1]) == 1)
 		return (write_error("Invalid number of philosophers"));
-	if (argv[2] <= 0 || !(str_is_num(argv[2])))
+	if (ft_atoi(argv[2]) <= 0 || check_arg_content(argv[2]) == 1)
 		return (write_error("Invalid time to die"));
-	if (argv[3] <= 0 || !(str_is_num(argv[3])))
+	if (ft_atoi(argv[3]) <= 0 || check_arg_content(argv[3]) == 1)
 		return (write_error("Invalid time to eat"));
-	if (argv[4] <= 0 || !(str_is_num(argv[4])))
+	if (ft_atoi(argv[4]) <= 0 || check_arg_content(argv[4]) == 1)
 		return (write_error("Invalid time to sleep"));
-	if (argv[5] && (argv[2] <= 0 || !(str_is_num(argv[2]))))
+	if (argv[5] && (ft_atoi(argv[5]) < 0 || check_arg_content(argv[5]) == 1))
 		return (write_error("Invalid number of time each philo must eat"));
+	return (0);
 }

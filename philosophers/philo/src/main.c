@@ -16,10 +16,13 @@ int	main(int argc, char	**argv)
 {
 	t_rules	rules;
 
-	if (argc != 4 || argc != 5)
-		return(write_error("Wrong number of arguments"));
-	parse_checker(argv);
-	if (init_all(&rules, argv))
+	if (argc < 5 || argc > 6)
+		return (write_error("Wrong number of arguments"));
+	if (parse_checker(argv))
 		return (1);
-	
+	if (init_all(&rules, argv))
+		return (write_error("There was an error creating the threads"));
+	if (launcher(&rules))
+		return (1);
+	return (0);
 }

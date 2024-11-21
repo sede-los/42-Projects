@@ -41,7 +41,7 @@ typedef struct s_rules
 	int				t_to_sleep;
 	int				nb_all_eat;
 	int				flag_died;
-	int				all_eat;
+	int				flag_all_eat;
 	long long		first_timestamp;
 	pthread_mutex_t	writing;
 	pthread_mutex_t	meal_check;
@@ -53,12 +53,26 @@ typedef struct s_rules
 int	write_error(char *str);
 
 //parsing
+int	parse_checker(char	**argv);
 
 //initialization
 int	init_all(t_rules *rules, char **argv);
 int	init_mutex(t_rules *rules);
 int	init_philosophers(t_rules *rules);
 
+//launcher
+int launcher(t_rules *rules);
+void	*p_thread(void *void_phi);
+void	philo_eats(t_philo *phi);
+void	death_checker(t_rules *r, t_philo *p);
+void	exit_launcher(t_rules *rules, t_philo *philos);
+
 //utils
 int	ft_atoi(char *str);
+int	check_arg_content(char *arg);
+long long	timestamp(void);
+long long	time_diff(long long past, long long pres);
+void	action_print(t_rules *rules, int id, char *str);
+void	smart_sleep(long long time, t_rules *rules);
+
 #endif

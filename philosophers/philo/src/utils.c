@@ -36,16 +36,43 @@ int	ft_atoi(char *str)
 	return (sign * nb);
 }
 
-int	str_is_num(char	*c)
+int	check_arg_content(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while(c[i] != '\0')
+	while (arg[i] != '\0')
 	{
-		if (c[i] < '0' || c[i] > '9')
-			return(0);
+		if (arg[i] < '0' || arg[i] > '9')
+			return (1);
 		i++;
 	}
-	return(1);
+	return (0);
+}
+
+long long	timestamp(void)
+{
+	struct timeval	t;
+
+	if (gettimeofday(&t, NULL) == -1)
+		write_error("gettimeofday() error\n");
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+}
+
+long long	time_diff(long long past, long long pres)
+{
+	return (pres - past);
+}
+
+void	smart_sleep(long long time, t_rules *rules)
+{
+	long long	i;
+
+	i = timestamp();
+	while (!(rules->flag_died))
+	{
+		if (time_diff(i, timestamp()) >= time)
+			break ;
+		usleep(50);
+	}
 }
