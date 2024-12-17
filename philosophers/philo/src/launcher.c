@@ -12,11 +12,18 @@
 
 #include "../include/philosophers.h"
 
-void	philo_eats(t_philo *phi)
+int	philo_eats(t_philo *phi)
 {
 	t_rules	*rules;
 
 	rules = phi->rules;
+	pthread_mutex_lock(&(rules->meal_check));
+	if (rules->nb_all_eat != -1 && phi->x_ate >= rules->nb_all_eat)
+	{
+		pthread_mutex_unlock(&(rules->meal_check));
+		return (0);
+	}
+	pthread_mutex_unlock(&(rules->meal_check));
 	pthread_mutex_lock(&(rules->forks[phi->left_fork_id]));
 	action_print(rules, phi->id, "has taken a fork");
 	pthread_mutex_lock(&(rules->forks[phi->right_fork_id]));
@@ -24,11 +31,12 @@ void	philo_eats(t_philo *phi)
 	pthread_mutex_lock(&(rules->meal_check));
 	action_print(rules, phi->id, "is eating");
 	phi->t_last_meal = timestamp();
+	phi->x_ate++;
 	pthread_mutex_unlock(&(rules->meal_check));
 	smart_sleep(rules->t_to_eat, rules);
-	phi->x_ate++;
 	pthread_mutex_unlock(&(rules->forks[phi->left_fork_id]));
 	pthread_mutex_unlock(&(rules->forks[phi->right_fork_id]));
+	return (1);
 }
 
 void	*p_thread(void *void_phi)
@@ -50,9 +58,8 @@ void	*p_thread(void *void_phi)
 		usleep(15000);
 	while (!(rules->flag_died))
 	{
-		philo_eats(phi);
-		if (rules->flag_all_eat)
-			break ;
+		if (philo_eats(phi) == 0)
+			break;
 		action_print(rules, phi->id, "is sleeping");
 		smart_sleep(rules->t_to_sleep, rules);
 		action_print(rules, phi->id, "is tinking");

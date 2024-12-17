@@ -15,13 +15,13 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
-SRCS = main.c \
-		checker.c \
-		error_handler.c \
-		init.c \
-		launcher.c \
-		utils.c \
-		utils_2.c \
+SRCS = src/main.c \
+		src/checker.c \
+		src/error_handler.c \
+		src/init.c \
+		src/launcher.c \
+		src/utils.c \
+		src/utils_2.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sede-los <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 04:51:56 by sede-los          #+#    #+#             */
-/*   Updated: 2024/10/04 04:51:59 by sede-los         ###   ########.fr       */
+/*   Created: 2024/12/17 22:04:57 by sede-los          #+#    #+#             */
+/*   Updated: 2024/12/17 22:05:00 by sede-los         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,7 +20,7 @@
 
 # define PHILO_MAX 200
 
-struct s_rules;
+struct	s_rules;
 
 typedef struct s_philo
 {
@@ -50,29 +50,29 @@ typedef struct s_rules
 }				t_rules;
 
 //error_handler
-int	write_error(char *str);
+int			write_error(char *str);
 
 //parsing
-int	parse_checker(char	**argv);
+int			parse_checker(char	**argv);
 
 //initialization
-int	init_all(t_rules *rules, char **argv);
-int	init_mutex(t_rules *rules);
-int	init_philosophers(t_rules *rules);
+int			init_all(t_rules *rules, char **argv);
+int			init_mutex(t_rules *rules);
+int			init_philosophers(t_rules *rules);
 
 //launcher
-int launcher(t_rules *rules);
-void	*p_thread(void *void_phi);
-void	philo_eats(t_philo *phi);
-void	death_checker(t_rules *r, t_philo *p);
-void	exit_launcher(t_rules *rules, t_philo *philos);
+int			launcher(t_rules *rules);
+void		*p_thread(void *void_phi);
+int			philo_eats(t_philo *phi);
+void		death_checker(t_rules *r, t_philo *p);
+void		exit_launcher(t_rules *rules, t_philo *philos);
 
 //utils
-int	ft_atoi(char *str);
-int	check_arg_content(char *arg);
+int			ft_atoi(char *str);
+int			check_arg_content(char *arg);
 long long	timestamp(void);
 long long	time_diff(long long past, long long pres);
-void	action_print(t_rules *rules, int id, char *str);
-void	smart_sleep(long long time, t_rules *rules);
+void		action_print(t_rules *rules, int id, char *str);
+void		smart_sleep(long long time, t_rules *rules);
 
 #endif
