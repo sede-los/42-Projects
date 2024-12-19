@@ -59,7 +59,7 @@ void	*p_thread(void *void_phi)
 	while (!(rules->flag_died))
 	{
 		if (philo_eats(phi) == 0)
-			break;
+			break ;
 		action_print(rules, phi->id, "is sleeping");
 		smart_sleep(rules->t_to_sleep, rules);
 		action_print(rules, phi->id, "is tinking");
