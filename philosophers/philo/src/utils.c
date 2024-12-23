@@ -69,8 +69,15 @@ void	smart_sleep(long long time, t_rules *rules)
 	long long	i;
 
 	i = timestamp();
-	while (!(rules->flag_died))
+	while (1)
 	{
+		pthread_mutex_lock(&(rules->meal_check));
+		if (rules->flag_died)
+		{
+			pthread_mutex_unlock(&(rules->meal_check));
+			return ;
+		}
+		pthread_mutex_unlock(&(rules->meal_check));
 		if (time_diff(i, timestamp()) >= time)
 			break ;
 		usleep(50);

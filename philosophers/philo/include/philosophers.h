@@ -63,7 +63,7 @@ int			init_philosophers(t_rules *rules);
 //launcher
 int			launcher(t_rules *rules);
 void		*p_thread(void *void_phi);
-int			philo_eats(t_philo *phi);
+int			philo_eats(t_philo *phi, t_rules *rules);
 void		death_checker(t_rules *r, t_philo *p);
 void		exit_launcher(t_rules *rules, t_philo *philos);
 
@@ -74,5 +74,6 @@ long long	timestamp(void);
 long long	time_diff(long long past, long long pres);
 void		action_print(t_rules *rules, int id, char *str);
 void		smart_sleep(long long time, t_rules *rules);
+int			fork_order(int fork_1, int fork_2, int order);
 
 #endif

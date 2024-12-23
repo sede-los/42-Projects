@@ -24,3 +24,26 @@ void	action_print(t_rules *rules, int id, char *str)
 	pthread_mutex_unlock(&(rules->writing));
 	return ;
 }
+
+int	fork_order(int fork_1, int fork_2, int order)
+{
+	int	lower;
+	int	higher;
+
+	if (fork_1 < fork_2)
+	{
+		lower = fork_1;
+		higher = fork_2;
+	}
+	else
+	{
+		lower = fork_2;
+		higher = fork_1;
+	}
+	if (order == 1)
+		return (lower);
+	else if (order == 2)
+		return (higher);
+	else
+		return (-1);
+}
