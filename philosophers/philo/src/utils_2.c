@@ -47,3 +47,27 @@ int	fork_order(int fork_1, int fork_2, int order)
 	else
 		return (-1);
 }
+
+void	check_all_ate(t_rules *r, t_philo *p)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_lock(&(r->meal_check));
+	while (r->nb_all_eat != -1 && i < r->nb_philos
+		&& p[i].x_ate >= r->nb_all_eat)
+		i++;
+	pthread_mutex_unlock(&(r->meal_check));
+	if (i == r->nb_philos)
+		r->flag_all_eat = 1;
+}
+
+void	handle_single_philo(t_philo	*phi, t_rules *rules)
+{
+	action_print(rules, phi->id, "has taken a fork");
+	smart_sleep(rules->t_to_death, rules);
+	action_print(rules, phi->id, "died");
+	pthread_mutex_lock(&(rules->meal_check));
+	rules->flag_died = 1;
+	pthread_mutex_unlock(&(rules->meal_check));
+}

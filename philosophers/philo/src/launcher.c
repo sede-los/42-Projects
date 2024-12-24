@@ -50,12 +50,7 @@ void	*p_thread(void *void_phi)
 	rules = phi->rules;
 	if (rules->nb_philos == 1)
 	{
-		action_print(rules, phi->id, "has taken a fork");
-		smart_sleep(rules->t_to_death, rules);
-		action_print(rules, phi->id, "died");
-		pthread_mutex_lock(&(rules->meal_check));
-		rules->flag_died = 1;
-		pthread_mutex_unlock(&(rules->meal_check));
+		handle_single_philo(phi, rules);
 		return (NULL);
 	}
 	if (phi->id % 2)
@@ -96,14 +91,7 @@ void	death_checker(t_rules *r, t_philo *p)
 			break ;
 		}
 		pthread_mutex_unlock(&(r->meal_check));
-		i = 0;
-		pthread_mutex_lock(&(r->meal_check));
-		while (r->nb_all_eat != -1 && i < r->nb_philos
-			&& p[i].x_ate >= r->nb_all_eat)
-			i++;
-		pthread_mutex_unlock(&(r->meal_check));
-		if (i == r->nb_philos)
-			r->flag_all_eat = 1;
+		check_all_ate(r, p);
 	}
 }
 
