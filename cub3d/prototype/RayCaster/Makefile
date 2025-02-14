@@ -11,8 +11,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(SRC) -o $(NAME) $(INCLUDES) $(LFLAGS)
 
-fclean:
+clean:
 	rm -rf $(OBJ)
+
+fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
