@@ -21,6 +21,17 @@
 
 # define PI 3.14159265359
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+} t_texture;
+
 typedef struct s_player
 {
 	float	x;
@@ -47,6 +58,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
+	t_texture	textures[4];
 
 	char		**map;
 }				t_game;

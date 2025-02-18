@@ -109,17 +109,41 @@ char **get_map(void)
 {
     char **map = malloc(sizeof(char *) * 11);
     map[0] = "111111111111111";
-    map[1] = "101000000000001";
-    map[2] = "101010000000001";
-    map[3] = "101010000000001";
-    map[4] = "101010000000001";
-    map[5] = "101010000000001";
-    map[6] = "101010000000001";
-    map[7] = "101010000000001";
-    map[8] = "100010000000001";
+    map[1] = "100000000000001";
+    map[2] = "100010000000001";
+    map[3] = "100000000010001";
+    map[4] = "100010000000001";
+    map[5] = "100000000000001";
+    map[6] = "100000000100001";
+    map[7] = "101000000000001";
+    map[8] = "100000000000001";
     map[9] = "111111111111111";
     map[10] = NULL;
     return (map);
+}
+
+void load_textures(t_game *game)
+{
+	int i;
+	char *texture_paths[4] = 
+	{
+		"textures/wall_north.xpm",
+		"textures/wall_south.xpm",
+		"textures/wall_east.xpm",
+		"textures/wall_west.xpm"
+	};
+	i = 0;
+	while(i < 4)
+	{
+		game->textures[i].img = mlx_xpm_file_to_image(game->mlx, texture_paths[i], &game->textures[i].width, &game->textures[i].height);
+		if(!game->textures[i].img)
+		{
+			printf("Error loading texture: %s\n", texture_paths[i]);
+			exit(1);
+		}
+		game->textures[i].data = mlx_get_data_addr(game->textures[i].img, &game->textures[i].bpp, &game->textures[i].size_line, &game->textures[i].endian);
+		i++;
+	}
 }
 
 void init_game(t_game *game)
@@ -130,6 +154,7 @@ void init_game(t_game *game)
     game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "RayCasting");
     game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
     game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
+	load_textures(game);
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 }
 
@@ -139,6 +164,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
     float   ray_y = player->y;
     float   cos_angle = cos(start_x);
     float   sin_angle = sin(start_x);
+	int		texture_index;
 
     while(!touch(ray_x, ray_y, game))
     {
@@ -150,15 +176,39 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 
     if(!DEBUG)
     {
+		float dist_x = fabs(ray_x - player->x);
+		float dist_y = fabs(ray_y - player->y);
+		if(dist_x > dist_y)
+		{
+			if(cos_angle > 0)
+				texture_index = 2;
+			else
+				texture_index = 3;
+		}
+		else
+		{
+			if(sin_angle > 0)
+				texture_index = 0;
+			else
+				texture_index = 1;
+		}
+
         float   dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
         float   height = (BLOCK / dist) * (WIDTH / 2);
         int     start_y = (HEIGHT - height) / 2;
         int     end = start_y + height;
-        while(start_y < end)
-        {
-            put_pixel(i, start_y, 255, game);
-            start_y++;
-        }
+		int		texture_x = ((int)ray_x % BLOCK) * (game->textures[texture_index].width / BLOCK);
+		if(texture_index == 0 || texture_index == 1)
+			texture_x = ((int)ray_y % BLOCK) * (game->textures[texture_index].width / BLOCK);
+		int y = start_y;
+		while(y < end)
+		{
+			int texture_y = ((y- start_y) * game->textures[texture_index].height / height);
+			int	text_pos = (texture_y * game->textures[texture_index].size_line) + (texture_x * (game->textures[texture_index].bpp / 8));
+			int color= *(int *)(game->textures[texture_index].data + text_pos);
+			put_pixel(i, y, color, game);
+			y++;
+		}
     }
 }
 
@@ -185,6 +235,7 @@ int draw_loop(t_game *game)
     }
 
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	return (0);
 }
 
 int main(void)
