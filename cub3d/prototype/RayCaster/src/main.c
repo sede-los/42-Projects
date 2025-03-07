@@ -197,9 +197,13 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
         float   height = (BLOCK / dist) * (WIDTH / 2);
         int     start_y = (HEIGHT - height) / 2;
         int     end = start_y + height;
-		int		texture_x = ((int)ray_x % BLOCK) * (game->textures[texture_index].width / BLOCK);
-		if(texture_index == 0 || texture_index == 1)
-			texture_x = ((int)ray_y % BLOCK) * (game->textures[texture_index].width / BLOCK);
+        float wall_hit_pos;
+
+        if (texture_index == 0 || texture_index == 1)
+            wall_hit_pos = fmod(ray_x, BLOCK);
+        else
+            wall_hit_pos = fmod(ray_y, BLOCK);
+        int texture_x = (wall_hit_pos / BLOCK) * game->textures[texture_index].width;
 		int y = start_y;
 		while(y < end)
 		{
