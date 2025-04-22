@@ -1,0 +1,14 @@
+NO ./SDFSDFSGFGFDGDFDGDGDFG                  
+SO                       ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA           ./path_to_the_east_texture
+
+F 12,12,12
+C 34,12,12
+
+1111
+ 00 1
+ 00N001
+ 000111
+1111
+

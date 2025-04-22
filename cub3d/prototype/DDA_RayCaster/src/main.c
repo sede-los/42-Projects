@@ -31,13 +31,14 @@ float distance(float x, float y)
     return sqrt(x * x + y * y);
 }
 
-float fixed_dist(float x1, float y1, float x2, float y2, t_game *game)
+float fix_dist(float ra, float dist, t_game *game)
 {
-    float delta_x = x2 - x1;
-    float delta_y = y2 - y1;
-    float angle = atan2(delta_y, delta_x) - game->player.angle;
-    float fix_dist = distance(delta_x, delta_y) * cos(angle);
-    return fix_dist;
+    float   fixed_dist;
+    int     ca;
+
+    ca = fix_ang(game->player.angle - ra);
+    fixed_dist = dist * cos(deg_to_rad(ca));
+    return (fixed_dist);
 }
 
 void put_pixel(int x, int y, int color, t_game *game)
@@ -195,6 +196,20 @@ void load_textures(t_game *game)
 	}
 }
 
+void draw_vertical_line(int x, int lineH, int color, t_game *game)
+{
+    int y0 = (HEIGHT / 2) - (lineH / 2);
+    int y1 = (HEIGHT / 2) + (lineH / 2);
+    
+    if (y0 < 0) y0 = 0;
+    if (y1 > HEIGHT) y1 = HEIGHT;
+
+    for (int y = y0; y < y1; y++)
+    {
+        put_pixel(x, y, color, game);
+    }
+}
+
 void draw_line(int x0, int y0, int x1, int y1, int color, t_game *game)
 {
     int dx = abs(x1 - x0);
@@ -236,9 +251,12 @@ void draw_rays(t_player *player, t_game *game)
     float   vx;
     float   vy;
 
-    ra = fix_ang(player->angle + 30);//ray set back 30 degrees
+    int     color;
+    float   FOV = 60.0;
+    float   rayStep = FOV / WIDTH;
+    ra = fix_ang(player->angle - (FOV / 2));//ray set back 30 degrees
     r = 0;
-    while (r < 60)
+    while (r < WIDTH)
     {
         //---Vertical--- 
         dof = 0;
@@ -262,7 +280,7 @@ void draw_rays(t_player *player, t_game *game)
         {
             rx = player->x;
             ry = player->y;
-            dof = 8;
+            dof = 16;
         }
 
         while (dof < 16)
@@ -273,6 +291,7 @@ void draw_rays(t_player *player, t_game *game)
             {
                 dof=16;
                 disV=cos(deg_to_rad(ra)) * (rx - player->x) - sin(deg_to_rad(ra)) * (ry-player->y);
+                color = 0xAAAAAA;
             }
             else
             {
@@ -306,7 +325,7 @@ void draw_rays(t_player *player, t_game *game)
         {
             rx = player->x;
             ry = player->y;
-            dof = 8;
+            dof = 16;
         }
         while (dof < 16)
         {
@@ -316,6 +335,7 @@ void draw_rays(t_player *player, t_game *game)
             {
                 dof=16;
                 disH=cos(deg_to_rad(ra)) * (rx-player->x)-sin(deg_to_rad(ra)) * (ry-player->y);
+                color = 0x777777;
             }
             else
             {
@@ -331,7 +351,17 @@ void draw_rays(t_player *player, t_game *game)
             disH = disV;
         }
         draw_line(player->x, player->y, rx, ry, 0xFF0000, game);
-        ra=fix_ang(ra - 1);
+
+        //Render on 3D
+        disH = fix_dist(ra, disH, game);
+        int lineH = (BLOCK * HEIGHT) / (disH);
+        if (lineH > HEIGHT)
+            lineH = HEIGHT;
+        draw_vertical_line(r * (WIDTH / 60), lineH, color, game);
+
+        printf("Ray %d: Angle = %f\n", r, ra);
+        printf("Ray %d: PlayerAngle = %f\n", r, player->angle);
+        ra=fix_ang(ra + rayStep);
         r++;
     }
 }
